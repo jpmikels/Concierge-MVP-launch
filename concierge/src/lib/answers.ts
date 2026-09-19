@@ -11,7 +11,8 @@ export interface InsiderMove {
   whyItWorks: string;
   attribution: string;
   reviewStatus: ReviewStatus;
-  resourcePointer: string | null;
+  referralIds: string[];
+  resourcePointer?: string | null;
 }
 
 export const seedAnswers: InsiderMove[] = [
@@ -65,8 +66,7 @@ export const seedAnswers: InsiderMove[] = [
     attribution:
       "From professional eldercare practice in Utah - not legal or tax advice. Consult an elder law attorney for your specific situation.",
     reviewStatus: "needs_review",
-    resourcePointer:
-      "Utah Department of Workforce Services can verify current Medicaid eligibility rules.",
+    referralIds: ["utah-state-bar-elder-law", "utah-dws-medicaid", "utah-aaa"],
   },
   {
     id: "hospital-discharge",
@@ -124,8 +124,7 @@ export const seedAnswers: InsiderMove[] = [
     attribution:
       "From professional practice and caregiver experience - not medical advice.",
     reviewStatus: "verified",
-    resourcePointer:
-      "Ask for the patient advocate if the discharge planner will not answer your questions.",
+    referralIds: ["hospital-patient-advocate", "medicare-hospice-compare"],
   },
   {
     id: "uti-confusion",
@@ -184,7 +183,7 @@ export const seedAnswers: InsiderMove[] = [
     attribution:
       "From clinical practice and caregiver forums - not medical advice. Get the test done.",
     reviewStatus: "verified",
-    resourcePointer: null,
+    referralIds: ["alzheimers-association-utah"],
   },
   {
     id: "repeated-questions",
@@ -242,7 +241,7 @@ export const seedAnswers: InsiderMove[] = [
       "Memory loss creates constant low-grade anxiety. A whiteboard with key facts reduces the need to ask by letting her verify independently.",
     attribution: "From professional dementia care practice.",
     reviewStatus: "verified",
-    resourcePointer: null,
+    referralIds: ["alzheimers-association-utah", "utah-caregiver-support"],
   },
   {
     id: "big-hospital-bill",
@@ -298,8 +297,7 @@ export const seedAnswers: InsiderMove[] = [
     attribution:
       "From professional and caregiver knowledge - not legal or financial advice. Consult a patient advocate or attorney for large debts.",
     reviewStatus: "needs_review",
-    resourcePointer:
-      "Dollar For (dollarfor.org) and RIP Medical Debt help eliminate medical debt for qualifying families.",
+    referralIds: ["dollar-for", "rip-medical-debt", "hospital-patient-advocate"],
   },
   {
     id: "sibling-not-helping",
@@ -358,7 +356,7 @@ export const seedAnswers: InsiderMove[] = [
       "Vague intentions let people off the hook. Specific, documented commitments are harder to ignore. And regular check-ins prevent festering resentment.",
     attribution: "From caregiver coordination practice.",
     reviewStatus: "verified",
-    resourcePointer: null,
+    referralIds: ["utah-caregiver-support", "alzheimers-association-utah"],
   },
   {
     id: "remote-monitoring",
@@ -415,8 +413,7 @@ export const seedAnswers: InsiderMove[] = [
       "The medical alert pendant only works if she is wearing it. A voice-activated device works from anywhere in the room, even the floor.",
     attribution: "From caregiver experience.",
     reviewStatus: "verified",
-    resourcePointer:
-      "If she will not use Alexa, consider a traditional medical alert system - some insurance plans cover them.",
+    referralIds: ["medical-alert-comparison", "utah-aaa"],
   },
   {
     id: "poa-capacity",
@@ -468,8 +465,7 @@ export const seedAnswers: InsiderMove[] = [
     attribution:
       "From legal practice knowledge - not legal advice. Consult an elder law attorney in your state.",
     reviewStatus: "needs_review",
-    resourcePointer:
-      "Utah State Bar lawyer referral service can help find an elder law attorney.",
+    referralIds: ["utah-state-bar-elder-law", "utah-legal-services"],
   },
   {
     id: "hospice-at-home",
@@ -515,8 +511,7 @@ export const seedAnswers: InsiderMove[] = [
       "Hospice is designed to support the family, not just the patient. It brings professional help into the home instead of everyone struggling alone.",
     attribution: "From clinical and caregiver practice - not medical advice.",
     reviewStatus: "verified",
-    resourcePointer:
-      "Medicare.gov has a hospice compare tool to find providers in your area.",
+    referralIds: ["medicare-hospice-compare", "utah-aaa"],
   },
   {
     id: "handoff-two-days",
@@ -573,7 +568,7 @@ export const seedAnswers: InsiderMove[] = [
       "Right now, all the care knowledge lives in your head. That is why you cannot leave. Moving it to paper frees you.",
     attribution: "From caregiver coordination practice.",
     reviewStatus: "verified",
-    resourcePointer: null,
+    referralIds: ["utah-caregiver-support", "aging-lifespan-respite"],
   },
   {
     id: "medicaid-waiver-waitlist",
@@ -619,8 +614,7 @@ export const seedAnswers: InsiderMove[] = [
     attribution:
       "From Utah program knowledge - not official guidance. Verify current waitlist status with the state.",
     reviewStatus: "needs_review",
-    resourcePointer:
-      "Utah DAAS (Aging and Adult Services) can provide current waitlist information.",
+    referralIds: ["utah-dws-medicaid", "utah-daas", "new-choices-waiver"],
   },
   {
     id: "caregiver-paid",
@@ -668,7 +662,6 @@ export const seedAnswers: InsiderMove[] = [
     attribution:
       "From Utah Medicaid and VA program knowledge - not financial advice. Verify current eligibility with the relevant agencies.",
     reviewStatus: "needs_review",
-    resourcePointer:
-      "Utah Area Agency on Aging can help navigate these programs.",
+    referralIds: ["utah-aaa", "va-aid-attendance", "utah-dws-medicaid"],
   },
 ];

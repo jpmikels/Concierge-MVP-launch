@@ -1,13 +1,13 @@
 # The Concierge
 
-The insider move for adult children caring for aging parents. Not a directory—the actual move.
+The insider move for adult children caring for aging parents. Not a directory—the actual move, then a vetted handoff to the right resource.
 
 ## What This Is
 
-A plain-language tool that answers the question you'd ask a friend who happens to know eldercare. You describe what's happening; it tells you what to do, what to say, and who to say it to.
+A plain-language tool that answers the question you'd ask a friend who happens to know eldercare. You describe what's happening; it tells you what to do, what to say, who to say it to—then hands you off to a vetted Utah resource.
 
 This is **not**:
-- A list of agencies
+- A directory of agencies
 - A medical/legal/financial advisor
 - A chatbot that makes things up
 - A wellness brand with warm platitudes
@@ -26,7 +26,7 @@ Type a question like you'd tell a friend:
 - "The hospital is sending Dad home Friday. Is that it?"
 - "She keeps asking the same question every ten minutes."
 
-Get the move—the insider advice, not a directory listing.
+Get the move—the insider advice first, then vetted resources to call.
 
 ## How It Works
 
@@ -53,8 +53,23 @@ Each answer includes structured fields:
 - **Who to Talk To** — Specific person/role
 - **Timing & Deadline** — What happens if you wait
 - **Why This Works** — One plain sentence
+- **Who to Call Next** — Vetted referrals (see below)
 - **Attribution** — Source and review status
-- **Resource** — Optional supporting link
+
+### Vetted Referrals
+
+Each move links to 1-3 curated referrals—real Utah institutions and verified paths to help:
+
+- **Utah State Bar Lawyer Referral Service** — For POA, estate planning
+- **Utah Division of Aging and Adult Services (DAAS)** — Central aging services
+- **Utah Area Agency on Aging** — Local navigation help
+- **Medicare Hospice Compare** — Official hospice quality tool
+- **Dollar For / RIP Medical Debt** — Medical debt nonprofits
+- **VA Aid & Attendance** — Veterans caregiver benefits
+- **Utah Caregiver Support Program** — Respite and support
+- And more...
+
+Referrals include: why they're trusted, how to reach them, Utah-specific notes, and review status.
 
 ### The Matcher
 
@@ -113,7 +128,7 @@ Answers live in `src/lib/answers.ts`. Each answer is a TypeScript object:
   whyItWorks: "One sentence explaining the mechanism",
   attribution: "Source note—not medical/legal/financial advice where relevant",
   reviewStatus: "verified" | "needs_review",
-  resourcePointer: "Optional URL or resource name, or null",
+  referralIds: ["utah-state-bar-elder-law", "utah-aaa"],  // Link to referrals
 }
 ```
 
@@ -124,6 +139,34 @@ Answers live in `src/lib/answers.ts`. Each answer is a TypeScript object:
 3. **Utah-first** for state-specific content (this can be expanded later).
 4. **Mark review status** honestly—anything legal/financial/medical defaults to `needs_review`.
 5. **Keywords matter.** Include both formal terms and how people actually talk ("POA" and "power of attorney").
+6. **Link referrals.** Every answer should have at least one referralId.
+
+## Adding New Referrals
+
+Referrals live in `src/lib/referrals.ts`. Each referral is a TypeScript object:
+
+```typescript
+{
+  id: "unique-id",
+  category: "elder_law" | "hospice" | "benefits" | "hospital_advocate" | 
+            "home_health" | "respite" | "medical_debt" | "aging_services" | 
+            "veterans" | "medical_alert" | "other",
+  name: "Organization or Service Name",
+  whyTrusted: "One blunt sentence—why this is vetted, how we know.",
+  howToReach: "Phone, URL, or specific instruction (e.g. 'ask discharge planner for X')",
+  utahNotes: "Optional state-specific details",
+  reviewStatus: "verified" | "needs_review",
+  networkReady: true | false,  // true = candidate for future partner network
+}
+```
+
+### Guidelines for New Referrals
+
+1. **Use real public institutions.** Utah State Bar, DAAS, Medicare.gov, etc.
+2. **No fake private practices.** If you don't have a verified attorney, use "Utah State Bar Find a Lawyer" path.
+3. **Explain why trusted.** "State agency," "federally funded," "nonprofit that has eliminated $X in debt."
+4. **Be specific on how to reach.** Phone number, URL, or clear instruction.
+5. **Mark review status.** If you haven't verified the contact info recently, use `needs_review`.
 
 ## Project Structure
 
@@ -134,12 +177,13 @@ src/
 │   ├── layout.tsx      # App shell
 │   └── globals.css     # Tailwind config
 ├── components/
-│   ├── AskBox.tsx      # Question input
-│   ├── TheMoveDisplay.tsx  # Answer display
-│   ├── NoMatch.tsx     # Low/no confidence UI
+│   ├── AskBox.tsx      # Question input with example chips
+│   ├── TheMoveDisplay.tsx  # Answer + referrals display
+│   ├── NoMatch.tsx     # Low/no confidence UI with recovery
 │   └── FamilyRecordView.tsx  # Saved records modal
 └── lib/
-    ├── answers.ts      # Seed answer library (edit this!)
+    ├── answers.ts      # Seed answer library
+    ├── referrals.ts    # Vetted referral library
     ├── examples.ts     # Example questions for UI chips
     ├── matcher.ts      # Keyword/intent matching with stemming
     ├── matcher.test.ts # Automated matcher tests
@@ -159,6 +203,7 @@ src/
 - **Not medical, legal, or financial advice.** This tool provides general information. For decisions about health, law, or money, consult a licensed professional.
 - **Utah-oriented sample content.** State programs and rules vary.
 - **Answers marked "needs review"** have not been verified by a professional in that domain.
+- **Referrals are informational.** Verify contact info before calling.
 
 ## License
 

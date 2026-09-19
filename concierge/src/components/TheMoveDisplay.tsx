@@ -1,6 +1,7 @@
 "use client";
 
 import { InsiderMove } from "@/lib/answers";
+import { getReferralsByIds, categoryLabels, Referral } from "@/lib/referrals";
 
 interface TheMoveDisplayProps {
   answer: InsiderMove;
@@ -12,6 +13,39 @@ interface TheMoveDisplayProps {
   isSaved: boolean;
 }
 
+function ReferralCard({ referral }: { referral: Referral }) {
+  return (
+    <div className="border border-gray-200 rounded-lg p-4 space-y-2">
+      <div className="flex items-start justify-between gap-2">
+        <div>
+          <p className="font-medium text-gray-900">{referral.name}</p>
+          <p className="text-xs text-gray-500">
+            {categoryLabels[referral.category]}
+          </p>
+        </div>
+        <span
+          className={`shrink-0 inline-flex items-center px-2 py-0.5 rounded text-xs font-medium ${
+            referral.reviewStatus === "verified"
+              ? "bg-green-100 text-green-800"
+              : "bg-yellow-100 text-yellow-800"
+          }`}
+        >
+          {referral.reviewStatus === "verified" ? "✓ Verified" : "⚠ Review"}
+        </span>
+      </div>
+      <p className="text-sm text-gray-600">{referral.whyTrusted}</p>
+      <p className="text-sm text-gray-900">
+        <span className="font-medium">How to reach:</span> {referral.howToReach}
+      </p>
+      {referral.utahNotes && (
+        <p className="text-xs text-gray-500 italic">
+          Utah: {referral.utahNotes}
+        </p>
+      )}
+    </div>
+  );
+}
+
 export function TheMoveDisplay({
   answer,
   confidence,
@@ -21,6 +55,8 @@ export function TheMoveDisplay({
   onAskAnother,
   isSaved,
 }: TheMoveDisplayProps) {
+  const referrals = getReferralsByIds(answer.referralIds);
+
   return (
     <div className="w-full max-w-2xl space-y-6">
       {confidence === "low" && clarifyingQuestion && (
@@ -74,6 +110,19 @@ export function TheMoveDisplay({
           <p className="text-gray-600">{answer.whyItWorks}</p>
         </section>
 
+        {referrals.length > 0 && (
+          <section className="pt-4 border-t border-gray-200">
+            <h2 className="text-xs font-semibold uppercase tracking-wide text-gray-500 mb-3">
+              Who to Call Next
+            </h2>
+            <div className="space-y-3">
+              {referrals.map((referral) => (
+                <ReferralCard key={referral.id} referral={referral} />
+              ))}
+            </div>
+          </section>
+        )}
+
         <div className="pt-4 border-t border-gray-200 space-y-3">
           <div className="flex items-center gap-2">
             <span
@@ -89,13 +138,6 @@ export function TheMoveDisplay({
             </span>
           </div>
           <p className="text-xs text-gray-500">{answer.attribution}</p>
-
-          {answer.resourcePointer && (
-            <p className="text-sm text-gray-600 mt-2">
-              <span className="font-medium">Resource:</span>{" "}
-              {answer.resourcePointer}
-            </p>
-          )}
         </div>
       </div>
 
