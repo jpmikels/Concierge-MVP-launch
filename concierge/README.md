@@ -58,12 +58,18 @@ Each answer includes structured fields:
 
 ### The Matcher
 
-The v1 matcher uses keyword and intent matching:
-- Extracts keywords from your question
+The v1 matcher uses keyword and intent matching with stemming and synonym expansion:
+- Extracts and stems keywords from your question
+- Expands queries with synonyms (mom/mother, confused/confusion, etc.)
 - Compares against each answer's keyword list and intent patterns
 - Scores matches and returns the best fit with a confidence level
 
-For low-confidence matches, it asks a clarifying question rather than guessing.
+For low-confidence matches, it shows the best guess with a clarifying question. Only truly empty/nonsense queries show the "no match" screen with example chips to recover.
+
+**Run matcher tests:**
+```bash
+npm run test:matcher
+```
 
 ### Optional LLM Enhancement
 
@@ -134,7 +140,9 @@ src/
 │   └── FamilyRecordView.tsx  # Saved records modal
 └── lib/
     ├── answers.ts      # Seed answer library (edit this!)
-    ├── matcher.ts      # Keyword/intent matching
+    ├── examples.ts     # Example questions for UI chips
+    ├── matcher.ts      # Keyword/intent matching with stemming
+    ├── matcher.test.ts # Automated matcher tests
     ├── llm.ts          # Optional OpenAI integration
     └── storage.ts      # localStorage utilities
 ```
