@@ -35,9 +35,9 @@ export function AskBox({ onSubmit, isLoading = false }: AskBoxProps) {
           value={question}
           onChange={(e) => setQuestion(e.target.value)}
           placeholder={exampleQuestions[placeholderIndex]}
-          className="w-full min-h-[120px] p-4 text-lg border-2 border-gray-300 rounded-lg 
-                     focus:border-gray-900 focus:outline-none resize-none
-                     placeholder:text-gray-400 bg-white text-gray-900"
+          className="w-full min-h-[120px] p-4 text-lg border-2 border-line rounded-lg 
+                     focus:border-ink focus:outline-none resize-none
+                     placeholder:text-ink-muted/60 bg-card text-ink"
           disabled={isLoading}
           rows={3}
         />
@@ -47,8 +47,8 @@ export function AskBox({ onSubmit, isLoading = false }: AskBoxProps) {
         <button
           type="submit"
           disabled={!question.trim() || isLoading}
-          className="px-6 py-3 bg-gray-900 text-white font-medium rounded-lg
-                     hover:bg-gray-800 disabled:bg-gray-300 disabled:cursor-not-allowed
+          className="px-6 py-3 bg-ink text-card font-medium rounded-lg
+                     hover:bg-ink/90 disabled:bg-line disabled:text-ink-muted disabled:cursor-not-allowed
                      transition-colors"
         >
           {isLoading ? "Finding the move..." : "What's the move?"}
@@ -56,7 +56,7 @@ export function AskBox({ onSubmit, isLoading = false }: AskBoxProps) {
       </div>
 
       <div className="mt-6">
-        <p className="text-sm text-gray-500 mb-3">Or try one of these:</p>
+        <p className="text-sm text-ink-muted mb-3">Or try one of these:</p>
         <div className="flex flex-wrap gap-2">
           {exampleQuestions.slice(0, 4).map((example, index) => (
             <button
@@ -64,8 +64,8 @@ export function AskBox({ onSubmit, isLoading = false }: AskBoxProps) {
               type="button"
               onClick={() => handleExampleClick(example)}
               disabled={isLoading}
-              className="px-3 py-2 text-sm text-gray-700 bg-gray-100 rounded-lg
-                         hover:bg-gray-200 disabled:opacity-50 disabled:cursor-not-allowed
+              className="px-3 py-2 text-sm text-ink bg-accent-soft rounded-lg
+                         hover:bg-accent-soft/70 disabled:opacity-50 disabled:cursor-not-allowed
                          transition-colors text-left"
             >
               {example.length > 50 ? example.slice(0, 50) + "..." : example}

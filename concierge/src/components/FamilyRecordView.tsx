@@ -48,27 +48,27 @@ export function FamilyRecordView({ onClose }: FamilyRecordViewProps) {
 
   if (!record || record.records.length === 0) {
     return (
-      <div className="fixed inset-0 bg-black/50 flex items-center justify-center p-4 z-50">
-        <div className="bg-white rounded-lg max-w-2xl w-full max-h-[90vh] overflow-y-auto p-6">
+      <div className="fixed inset-0 bg-ink/50 flex items-center justify-center p-4 z-50">
+        <div className="bg-card rounded-lg max-w-2xl w-full max-h-[90vh] overflow-y-auto p-6">
           <div className="flex justify-between items-center mb-6">
-            <h2 className="text-xl font-semibold text-gray-900">
+            <h2 className="text-xl font-semibold text-ink">
               Mom&apos;s Care File
             </h2>
             <button
               onClick={onClose}
-              className="text-gray-500 hover:text-gray-700"
+              className="text-ink-muted hover:text-ink"
             >
               ✕
             </button>
           </div>
-          <p className="text-gray-600">
+          <p className="text-ink-muted">
             No records saved yet. When you get advice that helps, save it here
             to build your family&apos;s care reference.
           </p>
           <button
             onClick={onClose}
-            className="mt-6 w-full px-4 py-2 bg-gray-900 text-white rounded-lg
-                       hover:bg-gray-800 transition-colors"
+            className="mt-6 w-full px-4 py-2 bg-ink text-card rounded-lg
+                       hover:bg-ink/90 transition-colors"
           >
             Close
           </button>
@@ -78,21 +78,21 @@ export function FamilyRecordView({ onClose }: FamilyRecordViewProps) {
   }
 
   return (
-    <div className="fixed inset-0 bg-black/50 flex items-center justify-center p-4 z-50">
-      <div className="bg-white rounded-lg max-w-2xl w-full max-h-[90vh] overflow-y-auto">
-        <div className="sticky top-0 bg-white border-b border-gray-200 p-4 flex justify-between items-center">
+    <div className="fixed inset-0 bg-ink/50 flex items-center justify-center p-4 z-50">
+      <div className="bg-card rounded-lg max-w-2xl w-full max-h-[90vh] overflow-y-auto">
+        <div className="sticky top-0 bg-card border-b border-line p-4 flex justify-between items-center">
           <div>
-            <h2 className="text-xl font-semibold text-gray-900">
+            <h2 className="text-xl font-semibold text-ink">
               Mom&apos;s Care File
             </h2>
-            <p className="text-sm text-gray-500">
+            <p className="text-sm text-ink-muted">
               {record.records.length} saved{" "}
               {record.records.length === 1 ? "record" : "records"}
             </p>
           </div>
           <button
             onClick={onClose}
-            className="text-gray-500 hover:text-gray-700 text-xl"
+            className="text-ink-muted hover:text-ink text-xl"
           >
             ✕
           </button>
@@ -102,59 +102,59 @@ export function FamilyRecordView({ onClose }: FamilyRecordViewProps) {
           {record.records.map((item) => (
             <div
               key={item.id}
-              className="border border-gray-200 rounded-lg p-4 space-y-3"
+              className="border border-line rounded-lg p-4 space-y-3"
             >
               <div className="flex justify-between items-start">
                 <div>
-                  <p className="font-medium text-gray-900">{item.question}</p>
-                  <p className="text-xs text-gray-500">
+                  <p className="font-medium text-ink">{item.question}</p>
+                  <p className="text-xs text-ink-muted">
                     Saved {new Date(item.savedAt).toLocaleDateString()}
                   </p>
                 </div>
                 <button
                   onClick={() => handleRemove(item.id)}
-                  className="text-gray-400 hover:text-red-500 text-sm"
+                  className="text-ink-muted hover:text-warn-fg text-sm"
                 >
                   Remove
                 </button>
               </div>
-              <div className="text-sm text-gray-700">
-                <p className="font-medium text-gray-600 text-xs uppercase tracking-wide mb-1">
+              <div className="text-sm text-ink-muted">
+                <p className="font-medium text-ink-muted text-xs uppercase tracking-wide mb-1">
                   The Move
                 </p>
-                <p className="whitespace-pre-line">{item.answer.theMove}</p>
+                <p className="whitespace-pre-line text-ink">{item.answer.theMove}</p>
               </div>
               {item.answer.whatToSay && (
                 <div className="text-sm">
-                  <p className="font-medium text-gray-600 text-xs uppercase tracking-wide mb-1">
+                  <p className="font-medium text-ink-muted text-xs uppercase tracking-wide mb-1">
                     What to Say
                   </p>
-                  <p className="italic text-gray-600">{item.answer.whatToSay}</p>
+                  <p className="italic text-ink-muted">{item.answer.whatToSay}</p>
                 </div>
               )}
             </div>
           ))}
         </div>
 
-        <div className="sticky bottom-0 bg-white border-t border-gray-200 p-4 space-y-2">
+        <div className="sticky bottom-0 bg-card border-t border-line p-4 space-y-2">
           <button
             onClick={handleCopy}
-            className="w-full px-4 py-2 border-2 border-gray-300 rounded-lg font-medium
-                       hover:border-gray-400 transition-colors text-gray-700"
+            className="w-full px-4 py-2 border-2 border-line rounded-lg font-medium
+                       hover:border-ink-muted transition-colors text-ink"
           >
             {copied ? "✓ Copied to clipboard" : "Copy all as text (to share)"}
           </button>
           <div className="flex gap-2">
             <button
               onClick={handleClear}
-              className="flex-1 px-4 py-2 text-red-600 hover:text-red-700 text-sm"
+              className="flex-1 px-4 py-2 text-warn-fg hover:text-warn-fg/80 text-sm"
             >
               Clear all
             </button>
             <button
               onClick={onClose}
-              className="flex-1 px-4 py-2 bg-gray-900 text-white rounded-lg
-                         hover:bg-gray-800 transition-colors"
+              className="flex-1 px-4 py-2 bg-ink text-card rounded-lg
+                         hover:bg-ink/90 transition-colors"
             >
               Close
             </button>

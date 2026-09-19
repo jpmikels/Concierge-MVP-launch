@@ -175,7 +175,7 @@ src/
 ├── app/
 │   ├── page.tsx        # Main UI
 │   ├── layout.tsx      # App shell
-│   └── globals.css     # Tailwind config
+│   └── globals.css     # Tailwind + brand tokens
 ├── components/
 │   ├── AskBox.tsx      # Question input with example chips
 │   ├── TheMoveDisplay.tsx  # Answer + referrals display
@@ -208,3 +208,12 @@ src/
 ## License
 
 MIT
+
+## Brand
+
+See [brand/BRAND-KIT.md](brand/BRAND-KIT.md) for color tokens, voice guidelines, and UI principles.
+
+The brand assets are:
+- `brand/BRAND-KIT.md` — Source of truth for voice, color, type, UI rules
+- `brand/tokens.css` — CSS custom properties
+- `public/brand/concierge-mark.png` — Doorway mark (deep spruce on paper)

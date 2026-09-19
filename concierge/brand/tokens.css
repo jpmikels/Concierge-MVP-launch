@@ -1,0 +1,13 @@
+:root {
+  --ink: #0F172A;
+  --ink-muted: #475569;
+  --paper: #FAFAF9;
+  --card: #FFFFFF;
+  --line: #E2E8F0;
+  --accent: #1D4E4A;
+  --accent-soft: #E8F0EF;
+  --warn-fg: #92400E;
+  --warn-bg: #FEF3C7;
+  --ok-fg: #14532D;
+  --ok-bg: #DCFCE7;
+}
