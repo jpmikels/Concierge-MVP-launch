@@ -37,25 +37,39 @@ export default function Home() {
     setSavedRecordId(null);
     setPersonalizedMove(null);
 
+    const keywordResult = matchQuery(question);
+    
     const llmConfig = getLLMConfig();
 
     if (llmConfig) {
       try {
         const llmResult = await matchWithLLM(question, llmConfig);
-        setMatchResult({
-          answer: llmResult.answer,
-          confidence: llmResult.confidence,
-          clarifyingQuestion: llmResult.clarifyingQuestion,
-        });
-        if (llmResult.personalizedMove) {
-          setPersonalizedMove(llmResult.personalizedMove);
-        }
-
+        
         if (llmResult.answer && llmResult.confidence !== "none") {
+          setMatchResult({
+            answer: llmResult.answer,
+            confidence: llmResult.confidence,
+            clarifyingQuestion: llmResult.clarifyingQuestion,
+          });
+          if (llmResult.personalizedMove) {
+            setPersonalizedMove(llmResult.personalizedMove);
+          }
           setAppState("result");
-        } else {
-          setAppState("no-match");
+          return;
         }
+        
+        if (keywordResult.answer) {
+          setMatchResult(keywordResult);
+          setAppState("result");
+          return;
+        }
+        
+        setMatchResult({
+          answer: null,
+          confidence: "none",
+          clarifyingQuestion: llmResult.clarifyingQuestion || keywordResult.clarifyingQuestion,
+        });
+        setAppState("no-match");
         return;
       } catch (error) {
         console.error("LLM matching failed, falling back to keyword match:", error);
@@ -63,10 +77,9 @@ export default function Home() {
     }
 
     setTimeout(() => {
-      const result = matchQuery(question);
-      setMatchResult(result);
+      setMatchResult(keywordResult);
 
-      if (result.answer && result.confidence !== "none") {
+      if (keywordResult.answer) {
         setAppState("result");
       } else {
         setAppState("no-match");
@@ -89,6 +102,10 @@ export default function Home() {
     setPersonalizedMove(null);
     setSavedRecordId(null);
   }, []);
+
+  const handleExampleClick = useCallback((example: string) => {
+    handleAsk(example);
+  }, [handleAsk]);
 
   const handleCloseRecord = useCallback(() => {
     setShowFamilyRecord(false);
@@ -159,6 +176,7 @@ export default function Home() {
               "Can you tell me more about what's happening?"
             }
             onTryAgain={handleAskAnother}
+            onExampleClick={handleExampleClick}
           />
         )}
       </div>
