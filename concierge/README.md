@@ -188,7 +188,14 @@ src/
     ├── matcher.ts      # Keyword/intent matching with stemming
     ├── matcher.test.ts # Automated matcher tests
     ├── llm.ts          # Optional OpenAI integration
-    └── storage.ts      # localStorage utilities
+    ├── storage.ts      # localStorage utilities
+    └── woz/            # WoZ operator console backend
+        ├── db.ts       # SQLite database setup
+        ├── types.ts    # TypeScript types
+        ├── repository.ts  # Data access layer
+        └── auth.ts     # Simple cookie auth
+data/
+└── woz/                # SQLite database (gitignored)
 ```
 
 ## Environment Variables
@@ -197,6 +204,78 @@ src/
 |----------|----------|-------------|
 | `NEXT_PUBLIC_OPENAI_API_KEY` | No | OpenAI API key for enhanced matching |
 | `NEXT_PUBLIC_OPENAI_MODEL` | No | Model to use (default: `gpt-4o-mini`) |
+| `WOZ_ACCESS_KEY` | No | Password for WoZ operator console (default: `dev-woz-key`) |
+
+---
+
+## WoZ Operator Console
+
+The `/woz` route provides an internal operator console for the two-week fieldwork test—a "Wizard of Oz" setup where the team manually handles real user questions before heavy productization.
+
+### Running the Console
+
+1. Set the access key in your environment:
+
+```bash
+# In .env.local or your environment
+WOZ_ACCESS_KEY=your-secret-key
+```
+
+2. Start the app and visit [http://localhost:3000/woz](http://localhost:3000/woz)
+
+3. Enter the access key to log in
+
+### Features
+
+**Participants**
+- Add adult children in the test with name, phone (optional), and intake info
+- Track "who told them before us" for each participant
+- Record start date for the 14-day follow-up cycle
+
+**Inbox / Threads**
+- Log inbound questions (paste from SMS)
+- Status tracking: new → drafting → sent → follow-up due
+- Mark second asks (unprompted follow-ups)
+
+**Answer Composer**
+- Structured fields: The Move, What to Say, Who, When, Why
+- "Suggest from Seed Library" button prefills from the curated matcher
+- Select vetted referrals from the library or add free-text handoffs
+- Preview the final text before marking sent
+- Voice reminder: "If a stranger at a funeral could say it, cut it."
+
+**Send Log**
+- Timestamps when answers are sent
+- Stores the exact final text for reference
+- Copyable for pasting back to SMS
+
+**Day-14 Follow-ups**
+- Auto-created when an answer is marked sent
+- Track: what they did, showed to sibling, what we could not answer
+- Mark complete when follow-up call is done
+
+**Metrics Dashboard**
+- Participant count
+- Total questions
+- Second asks (unprompted)
+- Unresolved / Drafting / Sent counts
+- Open follow-ups
+
+### Data Storage
+
+The WoZ console uses SQLite stored in `data/woz/woz.db`. This directory is gitignored—data stays local to the machine running the test.
+
+To back up or migrate data, copy the `data/woz/` directory.
+
+### What to Measure (Fieldwork)
+
+The console is designed to capture:
+1. **What they asked** — exact inbound text
+2. **Whether they asked a second time** — is_second_ask flag
+3. **What they did with the answer** — day-14 follow-up field
+4. **Whether they showed it to a sibling** — follow-up checkbox
+5. **What we could not answer** — follow-up field
+6. **Who told them before us** — participant intake field
 
 ## Disclaimers
 
