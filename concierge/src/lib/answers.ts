@@ -1,0 +1,489 @@
+export type ReviewStatus = "verified" | "needs_review";
+
+export interface InsiderMove {
+  id: string;
+  keywords: string[];
+  intentPatterns: string[];
+  theMove: string;
+  whatToSay: string | null;
+  whomToSayItTo: string;
+  orderAndDeadline: string;
+  whyItWorks: string;
+  attribution: string;
+  reviewStatus: ReviewStatus;
+  resourcePointer: string | null;
+}
+
+export const seedAnswers: InsiderMove[] = [
+  {
+    id: "rental-agreement",
+    keywords: [
+      "moved in",
+      "living with",
+      "staying with",
+      "mom moved",
+      "dad moved",
+      "parent moved",
+      "moved in with me",
+      "moved in with us",
+      "living arrangement",
+      "dependent",
+      "living together",
+    ],
+    intentPatterns: [
+      "my mom just moved in",
+      "my dad just moved in",
+      "parent moved in with me",
+      "what do I need to do first",
+      "mother living with us",
+      "father living with us",
+    ],
+    theMove:
+      "Write a rental agreement tonight. In Utah, a renter with no income qualifies for Medicaid and other programs. A dependent living on your income qualifies for almost nothing. The rent amount can be gifted straight back - that is legal.\n\nThis one piece of paper changes everything about what programs your parent can access. Most families never learn this until after they have been denied benefits.",
+    whatToSay:
+      "\"We are going to set up a rental agreement. The rent will be $X per month. I will gift that amount back to you each month - this is legal and normal. This protects your eligibility for programs we might need later.\"",
+    whomToSayItTo:
+      "Your parent (to sign the agreement). Then keep the signed document with other important papers.",
+    orderAndDeadline:
+      "Do this the first week they move in. If you wait until you need benefits, it looks like you are gaming the system and complicates applications.",
+    whyItWorks:
+      "Benefits programs look at housing status. A renter with low/no income has different eligibility than a dependent in someone else's household.",
+    attribution:
+      "From professional eldercare practice in Utah - not legal or tax advice. Consult an elder law attorney for your specific situation.",
+    reviewStatus: "needs_review",
+    resourcePointer:
+      "Utah Department of Workforce Services can verify current Medicaid eligibility rules.",
+  },
+  {
+    id: "hospital-discharge",
+    keywords: [
+      "hospital",
+      "discharge",
+      "sending home",
+      "coming home",
+      "leaving hospital",
+      "oxygen",
+      "pills",
+      "medications",
+      "going home",
+      "released",
+      "discharged",
+      "release",
+      "go home",
+      "ready to leave",
+    ],
+    intentPatterns: [
+      "hospital sending home",
+      "hospital is sending dad home",
+      "hospital is discharging",
+      "dad is being discharged",
+      "mom coming home from hospital",
+      "released from hospital",
+      "what do we do now",
+      "is that it",
+    ],
+    theMove:
+      "Before you leave the hospital, get answers to three questions the discharge packet will not cover: bladder, stool, and feeding. Ask explicitly: What is the plan for bathroom? What is the plan for meals? Who helps with what she cannot do herself?\n\nThen ask: Is hospice appropriate here? Hospice comes to the house. Medicare pays for it. Most families do not know this is an option until too late.",
+    whatToSay:
+      "\"Before we leave, I need to know: what is the plan for bladder, stool, and feeding at home? And is hospice appropriate - does she qualify?\"",
+    whomToSayItTo:
+      "The discharge planner or case manager. Ask for them by name if you have not met them yet.",
+    orderAndDeadline:
+      "Ask BEFORE you sign discharge papers. Once you are home, getting help becomes much harder. You lose leverage the moment you walk out.",
+    whyItWorks:
+      "Hospitals are measured on discharge speed. The discharge packet covers medications, not daily reality. If you do not ask about the mundane stuff, nobody will tell you.",
+    attribution:
+      "From professional practice and caregiver experience - not medical advice.",
+    reviewStatus: "verified",
+    resourcePointer:
+      "Ask for the patient advocate if the discharge planner will not answer your questions.",
+  },
+  {
+    id: "uti-confusion",
+    keywords: [
+      "confused",
+      "confusion",
+      "overnight",
+      "sudden",
+      "acting strange",
+      "not herself",
+      "dementia",
+      "worse",
+      "getting worse",
+      "suddenly",
+      "rapid change",
+      "disoriented",
+    ],
+    intentPatterns: [
+      "started acting confused overnight",
+      "suddenly confused",
+      "is this dementia getting worse",
+      "acting different suddenly",
+      "rapid mental change",
+      "sudden personality change",
+    ],
+    theMove:
+      "Check for a UTI first. Urinary tract infections cause sudden confusion in older adults that looks exactly like dementia getting worse - but it is treatable and reversible. This is the most common misread in eldercare.\n\nDo not wait for other symptoms. Older adults often do not get fever or burning with UTIs. The confusion IS the symptom.",
+    whatToSay:
+      "\"I need a urinalysis. She has had sudden mental status changes and I want to rule out a UTI before we assume it is her dementia progressing.\"",
+    whomToSayItTo:
+      "Her primary care doctor, or urgent care if you cannot get an appointment today. This is worth a same-day visit.",
+    orderAndDeadline:
+      "Today or tomorrow. A UTI left untreated can progress to sepsis in older adults. But also: the sooner you know, the sooner you stop panicking about dementia progression.",
+    whyItWorks:
+      "Delirium from infection is extremely common in elderly patients and almost always reversible with antibiotics. Dementia progression is not sudden.",
+    attribution:
+      "From clinical practice and caregiver forums - not medical advice. Get the test done.",
+    reviewStatus: "verified",
+    resourcePointer: null,
+  },
+  {
+    id: "repeated-questions",
+    keywords: [
+      "same question",
+      "keeps asking",
+      "asking again",
+      "over and over",
+      "ten times",
+      "hundred times",
+      "repetitive",
+      "repeating",
+      "repeat",
+      "losing my temper",
+      "patience",
+      "frustrated",
+      "asks again",
+      "asks what day",
+      "what time is it",
+      "50 times",
+      "answering",
+      "same thing",
+    ],
+    intentPatterns: [
+      "keeps asking the same question",
+      "asking same thing over and over",
+      "same question every ten minutes",
+      "losing my patience",
+      "losing my temper",
+      "how do I handle repetition",
+    ],
+    theMove:
+      "Put up a whiteboard. Every hospital room has one: today's date, where you are, who is visiting. It works for the same reason there - it offloads the anxiety of not knowing.\n\nThe repeated question is not about the answer. It is about the anxiety of having forgotten. The whiteboard lets her check without having to ask.",
+    whatToSay: null,
+    whomToSayItTo:
+      "Just do it - no permission needed. Put it somewhere she will see it naturally, like the kitchen or living room.",
+    orderAndDeadline:
+      "This week. Every day you wait is another day of both of you being frustrated. It costs $15 and 10 minutes.",
+    whyItWorks:
+      "Memory loss creates constant low-grade anxiety. A whiteboard with key facts reduces the need to ask by letting her verify independently.",
+    attribution: "From professional dementia care practice.",
+    reviewStatus: "verified",
+    resourcePointer: null,
+  },
+  {
+    id: "big-hospital-bill",
+    keywords: [
+      "bill",
+      "45000",
+      "$45k",
+      "hospital bill",
+      "medical bill",
+      "cannot pay",
+      "family responsible",
+      "they say we owe",
+      "collections",
+      "medical debt",
+    ],
+    intentPatterns: [
+      "got a huge bill",
+      "hospital bill says family responsible",
+      "they say we owe",
+      "medical debt",
+      "cannot afford the bill",
+    ],
+    theMove:
+      "First: you are probably not responsible. Adult children are not liable for parents' medical debt in most cases. The hospital's billing department may imply otherwise - this is collection theater, not law.\n\nSecond: request an itemized bill. Errors are common. Third: ask about charity care or financial assistance - every nonprofit hospital has a program, and most for-profits do too.\n\nFourth: medical debt can be purchased by charities for pennies on the dollar. Do not pay full price without exploring options.",
+    whatToSay:
+      "\"I need an itemized bill, not a summary. And I want to apply for your financial assistance program - can you send me the application?\"",
+    whomToSayItTo:
+      "Hospital billing department. Ask specifically for the financial counselor or patient financial services.",
+    orderAndDeadline:
+      "Within 30 days of the bill. Before it goes to collections, you have the most options. After collections, the hospital has less ability to negotiate.",
+    whyItWorks:
+      "Hospitals negotiate. Charity care exists. And the implied 'family is responsible' is often just aggressive billing language, not legal reality.",
+    attribution:
+      "From professional and caregiver knowledge - not legal or financial advice. Consult a patient advocate or attorney for large debts.",
+    reviewStatus: "needs_review",
+    resourcePointer:
+      "Dollar For (dollarfor.org) and RIP Medical Debt help eliminate medical debt for qualifying families.",
+  },
+  {
+    id: "sibling-not-helping",
+    keywords: [
+      "brother",
+      "sister",
+      "sibling",
+      "will not help",
+      "does not help",
+      "says he will help",
+      "says she will help",
+      "nothing happens",
+      "not pulling weight",
+      "doing everything",
+      "all on me",
+      "family pitch in",
+      "family help",
+      "never helps",
+      "never does",
+    ],
+    intentPatterns: [
+      "brother says he will help but does not",
+      "sister will not help",
+      "sibling not helping",
+      "doing everything myself",
+      "it is all on me",
+      "getting siblings to help",
+    ],
+    theMove:
+      "Call a family meeting. In person if possible - video if not. The rules: everyone attends, you agree on something concrete before you leave, and you schedule the next meeting.\n\nVague offers do not count. 'I will help more' is not a commitment. 'I will take Mom to her Thursday appointments' is. Write down who does what.\n\nReassess every three months. Care needs change. Agreements drift.",
+    whatToSay:
+      "\"We need a family meeting about Mom. I need us all there, and we need to leave with specific commitments written down - who does what, which days. Then we will meet again in three months to adjust.\"",
+    whomToSayItTo:
+      "Your siblings, directly. Email or text to schedule, but the meeting itself should be live.",
+    orderAndDeadline:
+      "Schedule it within the next two weeks. The longer you wait, the more the current arrangement calcifies into 'the way things are.'",
+    whyItWorks:
+      "Vague intentions let people off the hook. Specific, documented commitments are harder to ignore. And regular check-ins prevent festering resentment.",
+    attribution: "From caregiver coordination practice.",
+    reviewStatus: "verified",
+    resourcePointer: null,
+  },
+  {
+    id: "remote-monitoring",
+    keywords: [
+      "at work",
+      "away",
+      "check on",
+      "monitoring",
+      "is she okay",
+      "while I am gone",
+      "cannot be there",
+      "remote",
+      "watch",
+      "keep an eye",
+      "alone",
+      "by herself",
+      "falls",
+      "fall",
+      "something happens",
+      "not there",
+      "monitor",
+    ],
+    intentPatterns: [
+      "how can I tell she is okay while at work",
+      "monitor her while I am away",
+      "check on her remotely",
+      "she is alone during the day",
+      "worried while I am at work",
+    ],
+    theMove:
+      "Put an Alexa dot in every room. From the floor, after a fall, she can say 'Alexa, call 911' without reaching a phone. This is the $30 version of a medical alert system.\n\nFor daily check-ins: Alexa 'Drop In' lets you listen (with her permission set up in advance). For more monitoring, a motion-sensor system sends alerts if there is no movement for unusual periods.",
+    whatToSay:
+      "\"Mom, I am putting this in each room so you can call for help without finding your phone. You just say 'Alexa, call 911.' Can we test it together?\"",
+    whomToSayItTo:
+      "Your parent, with a simple explanation. Frame it as convenience and safety, not surveillance.",
+    orderAndDeadline:
+      "This week. Falls happen without warning. The setup takes an hour.",
+    whyItWorks:
+      "The medical alert pendant only works if she is wearing it. A voice-activated device works from anywhere in the room, even the floor.",
+    attribution: "From caregiver experience.",
+    reviewStatus: "verified",
+    resourcePointer:
+      "If she will not use Alexa, consider a traditional medical alert system - some insurance plans cover them.",
+  },
+  {
+    id: "poa-capacity",
+    keywords: [
+      "power of attorney",
+      "poa",
+      "legal documents",
+      "paperwork",
+      "before it is too late",
+      "while she can still",
+      "capacity",
+      "mental capacity",
+      "sign documents",
+    ],
+    intentPatterns: [
+      "need to get power of attorney",
+      "do we need poa",
+      "legal documents for aging parent",
+      "get paperwork done",
+      "before she cannot sign",
+    ],
+    theMove:
+      "Get the POA signed while she can still sign it. Once capacity is gone, it is too late - you will need guardianship through the courts, which costs $5,000-15,000 and takes months.\n\nYou need two documents: Durable Power of Attorney (for finances) and Healthcare Power of Attorney (for medical decisions). 'Durable' means it stays valid after incapacity.",
+    whatToSay:
+      "\"Mom, we need to sign some paperwork so I can help with your accounts and doctors if you ever cannot do it yourself. It is like insurance - we hope we never need it, but we need it in place now.\"",
+    whomToSayItTo:
+      "Your parent first. Then an elder law attorney to draft the documents - a few hundred dollars now versus thousands later.",
+    orderAndDeadline:
+      "This month. Capacity can disappear suddenly - a stroke, a hospitalization, a bad UTI. You cannot backdate these documents.",
+    whyItWorks:
+      "The legal system assumes adults make their own decisions. Without POA signed during capacity, you have no authority - even as the child doing all the care.",
+    attribution:
+      "From legal practice knowledge - not legal advice. Consult an elder law attorney in your state.",
+    reviewStatus: "needs_review",
+    resourcePointer:
+      "Utah State Bar lawyer referral service can help find an elder law attorney.",
+  },
+  {
+    id: "hospice-at-home",
+    keywords: [
+      "hospice",
+      "end of life",
+      "comfort care",
+      "dying",
+      "terminal",
+      "palliative",
+      "at home",
+      "die at home",
+      "not getting better",
+    ],
+    intentPatterns: [
+      "is hospice an option",
+      "can she die at home",
+      "what is hospice",
+      "hospice vs hospital",
+      "comfort care options",
+    ],
+    theMove:
+      "Hospice comes to the house. Medicare pays for it. Most families do not know this until too late.\n\nHospice is not giving up - it is shifting the goal from cure to comfort. You get a nurse, an aide, a social worker, a chaplain if you want one, and medications and equipment delivered. The patient stays home with family.\n\nYou can start hospice and change your mind. It is not a one-way door.",
+    whatToSay:
+      "\"I want to understand if hospice is appropriate. Would she qualify? What would that actually look like day to day?\"",
+    whomToSayItTo:
+      "Her primary care doctor or the hospital case manager. They can make a referral for a hospice evaluation - no commitment required.",
+    orderAndDeadline:
+      "Ask sooner than feels right. Families consistently say they wish they had started hospice earlier. The support helps YOU as much as the patient.",
+    whyItWorks:
+      "Hospice is designed to support the family, not just the patient. It brings professional help into the home instead of everyone struggling alone.",
+    attribution: "From clinical and caregiver practice - not medical advice.",
+    reviewStatus: "verified",
+    resourcePointer:
+      "Medicare.gov has a hospice compare tool to find providers in your area.",
+  },
+  {
+    id: "handoff-two-days",
+    keywords: [
+      "need a break",
+      "two days",
+      "going away",
+      "vacation",
+      "nobody knows",
+      "only I know",
+      "handoff",
+      "explain everything",
+      "brief them",
+      "exhausted",
+      "time off",
+      "if I got sick",
+      "who would",
+      "cannot leave",
+      "take over",
+      "cover for me",
+    ],
+    intentPatterns: [
+      "need to be away for a few days",
+      "nobody else knows how to care for her",
+      "explaining takes forever",
+      "only one who knows",
+      "cannot take a break",
+    ],
+    theMove:
+      "You need a handoff packet - and building one is simpler than re-explaining everything each time. Start documenting: medications (what, when, what they are for), the daily routine, what the crying at 4am means, who to call for what.\n\nThe goal: your sister can open one document and cover for you without two days of training first.\n\nUse a shared doc or app your family can all access. Update it as things change. This is also the document the ER needs when something goes wrong.",
+    whatToSay:
+      "\"I am putting together a document with everything about Mom's care. When it is ready, can we do a test run where you take over for a day while I am available by phone?\"",
+    whomToSayItTo:
+      "The sibling or helper who will be covering. Start with the document, then do a supervised handoff.",
+    orderAndDeadline:
+      "Start the document this week. It does not have to be perfect - a rough version is infinitely better than nothing when you get the flu and cannot care for her.",
+    whyItWorks:
+      "Right now, all the care knowledge lives in your head. That is why you cannot leave. Moving it to paper frees you.",
+    attribution: "From caregiver coordination practice.",
+    reviewStatus: "verified",
+    resourcePointer: null,
+  },
+  {
+    id: "medicaid-waiver-waitlist",
+    keywords: [
+      "medicaid",
+      "waiver",
+      "waitlist",
+      "waiting list",
+      "years",
+      "long wait",
+      "home care",
+      "in home support",
+      "paid caregiver",
+    ],
+    intentPatterns: [
+      "medicaid waiver waitlist",
+      "waiting for home care",
+      "how long is the wait",
+      "get help paying for care",
+    ],
+    theMove:
+      "Get on the waitlist now, even if you do not need help yet. Utah's Medicaid waiver waitlist for home and community-based services can be years long. There is no penalty for not using services immediately when your turn comes.\n\nAlso ask about New Choices Waiver if she is currently in a nursing home or hospital - there is sometimes faster access for people transitioning out of institutions.",
+    whatToSay:
+      "\"I want to get my mother on the Home and Community Based Services waiver waitlist. What is the current wait time, and what do I need to apply?\"",
+    whomToSayItTo:
+      "Utah Department of Workforce Services, or an Aging and Adult Services case manager. They handle waiver applications.",
+    orderAndDeadline:
+      "This month. Every month you wait is another month added to the end of your wait. The waitlist moves slowly, and getting on it costs nothing.",
+    whyItWorks:
+      "These programs are first-come, first-served. Your place in line is determined by when you applied, not when you need the service.",
+    attribution:
+      "From Utah program knowledge - not official guidance. Verify current waitlist status with the state.",
+    reviewStatus: "needs_review",
+    resourcePointer:
+      "Utah DAAS (Aging and Adult Services) can provide current waitlist information.",
+  },
+  {
+    id: "caregiver-paid",
+    keywords: [
+      "get paid",
+      "paid to care",
+      "paid caregiver",
+      "compensation",
+      "family caregiver",
+      "quit my job",
+      "leave work",
+      "income",
+      "quitting work",
+      "full time",
+      "care full time",
+      "money for caregiving",
+    ],
+    intentPatterns: [
+      "can I get paid to care for my parent",
+      "paid family caregiver",
+      "compensation for caregiving",
+      "financial support for caregivers",
+    ],
+    theMove:
+      "Some Medicaid programs let family members be paid caregivers. In Utah, look into the 'Specified Relative' provision in certain waiver programs. Your parent would need to be on Medicaid, and you would essentially be hired through the program.\n\nSeparately, if she is a veteran or spouse of a veteran, VA Aid & Attendance can provide funds that can pay for care - including from family.\n\nThis is not free money - there are qualifications, paperwork, and limits. But it is worth investigating before you quit your job and have no income.",
+    whatToSay:
+      "\"Is there any program where I could be paid as her caregiver? She is on Medicaid [or] she is a veteran's widow.\"",
+    whomToSayItTo:
+      "A Medicaid case worker (for the waiver question) or the VA (for Aid & Attendance). Local Area Agency on Aging can help navigate both.",
+    orderAndDeadline:
+      "Before you quit your job. These programs take time to set up and have eligibility requirements. Do not lose income while waiting for approval.",
+    whyItWorks:
+      "States and the VA recognize that family care is often better and cheaper than institutional care, and some programs support it financially.",
+    attribution:
+      "From Utah Medicaid and VA program knowledge - not financial advice. Verify current eligibility with the relevant agencies.",
+    reviewStatus: "needs_review",
+    resourcePointer:
+      "Utah Area Agency on Aging can help navigate these programs.",
+  },
+];
